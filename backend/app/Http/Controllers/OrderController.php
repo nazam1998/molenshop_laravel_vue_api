@@ -54,6 +54,7 @@ class OrderController extends Controller
      */
     public function show($order)
     {
+        
         $order = Order::find($order);
         if ($order->user_id != Auth::id()) {
             return redirect()->back();

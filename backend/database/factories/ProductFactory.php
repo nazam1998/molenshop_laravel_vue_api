@@ -16,10 +16,11 @@ class ProductFactory extends Factory
     {
         $shop = Shop::inRandomOrder()->withCount('products')->get();
         $shop = $shop->where('products_count', '<', 10)->first();
+        $shopImg = ['barbecue_style.jpg', 'dippers_guacamole.jpg', 'dippers_naturel.jpg', 'flamin_hot.jpg', 'nacho_cheese.jpg', 'pure_paprika.jpg', 'sweet_chilli_pepper.jpg'];
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->realText(),
-            'cover_path' => 'mockup.jpg',
+            'cover_path' => $shopImg[array_rand($shopImg)],
             'price' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 5000),
             'stock' => $this->faker->randomDigitNotNull(),
             'shop_id' => $shop->id

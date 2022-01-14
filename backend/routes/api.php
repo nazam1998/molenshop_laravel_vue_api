@@ -42,7 +42,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/shops', [ShopController::class, 'index'])->middleware('auth:sanctum');
     Route::get('/shop/{id}', [ShopController::class, 'show'])->middleware('auth:sanctum');
     Route::get('/shop', [ShopController::class, 'myShop'])->middleware('auth:sanctum');
-    
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware('auth:sanctum')->name('dashboard');
@@ -50,9 +50,9 @@ Route::prefix('v1')->group(function () {
     Route::put('/user/picture', [ProfileController::class, 'updatePicture'])->middleware('auth:sanctum');
     Route::put('/user', [ProfileController::class, 'update'])->middleware('auth:sanctum');
     Route::get('/cart', [CartController::class, 'index'])->middleware('auth:sanctum');
+    Route::post('/cart', [CartController::class, 'add'])->middleware('auth:sanctum');
     Route::post('/buy', [CartController::class, 'confirm'])->middleware('auth:sanctum');
     Route::delete('/cart/{id}', [CartController::class, 'remove'])->middleware('auth:sanctum');
-    Route::post('/cart/{id}', [CartController::class, 'add'])->middleware('auth:sanctum');
 
     Route::get('orders', [OrderController::class, 'index'])->middleware('auth:sanctum');
     Route::get('order/{order}', [OrderController::class, 'show'])->middleware('auth:sanctum');

@@ -30,16 +30,19 @@ class CartController extends Controller
 
 
 
-    public function add(Request $request, $id)
+    public function add(Request $request)
     {
-        $product = Product::find($id);
+        $product = Product::find($request->product);
         if ($product->shop->id == Auth::user()->shop->id) {
-            return redirect()->back();
+            return response()->json([
+                'message' => 'You cannot add your own product to your cart',
+                'status' => 400
+            ]);
         }
         $request->validate(['quantity' => ['required', 'numeric', 'min:1', 'max:' . $product->stock]]);
         $cart = Auth::user()->cart;
-        if (CartDetail::where('cart_id', $cart->id)->where('product_id', $id)->count() > 0) {
-            $cartdetail = CartDetail::where('cart_id', $cart->id)->where('product_id', $id)->first();
+        if (CartDetail::where('cart_id', $cart->id)->where('product_id', $request->product)->count() > 0) {
+            $cartdetail = CartDetail::where('cart_id', $cart->id)->where('product_id', $request->product)->first();
             $cartdetail->quantity += $request->quantity;
             $cartdetail->save();
         } else {
@@ -47,7 +50,7 @@ class CartController extends Controller
 
             $cartdetail->quantity = $request->quantity;
             $cartdetail->cart_id = $cart->id;
-            $cartdetail->product_id = $id;
+            $cartdetail->product_id = $request->product;
             $cartdetail->save();
         }
         $product->stock -= $request->quantity;
