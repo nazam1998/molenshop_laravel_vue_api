@@ -47,6 +47,7 @@ Route::prefix('v1')->group(function () {
         return view('dashboard');
     })->middleware('auth:sanctum')->name('dashboard');
 
+    Route::put('/product/{product}/picture', [ProductController::class, 'updatePicture'])->middleware('auth:sanctum');
     Route::put('/user/picture', [ProfileController::class, 'updatePicture'])->middleware('auth:sanctum');
     Route::put('/user', [ProfileController::class, 'update'])->middleware('auth:sanctum');
     Route::get('/cart', [CartController::class, 'index'])->middleware('auth:sanctum');

@@ -23,7 +23,7 @@ class ProductFactory extends Factory
             'name' => $shopName[$index],
             'description' => $this->faker->realText(),
             'cover_path' => $shopImg[$index],
-            'price' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 5000),
+            'price' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 200),
             'stock' => $this->faker->randomDigitNotNull(),
             'shop_id' => $shop->id
         ];

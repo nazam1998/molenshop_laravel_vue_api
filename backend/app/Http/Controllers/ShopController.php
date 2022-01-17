@@ -15,7 +15,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $shops = Shop::all();
+        $shops = Shop::with('products')->where('user_id','!=',Auth::id())->get();
         return response()->json(['message' => 'Succès', 'data' => $shops, 'status' => 200]);
     }
 

@@ -73,9 +73,9 @@ class ProductController extends Controller
     {
         $product = Product::find($product);
         return response()->json([
-            'message'=>'Succès',
-            'data'=>$product,
-            'status'=>200
+            'message' => 'Succès',
+            'data' => $product,
+            'status' => 200
         ]);
     }
 
@@ -100,8 +100,44 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
+    public function updatePicture(Request $request, Product $product)
+    {
+        if ($product->shop->id != Auth::user()->shop->id) {
+            return redirect()->back();
+        }
+        $request->validate([
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        
+        if ($request->image != null) {
+            $shopImg =  ['barbecue_style.jpg', 'dippers_guacamole.jpg', 'dippers_naturel.jpg', 'flamin_hot.jpg', 'nacho_cheese.jpg', 'pure_paprika.jpg', 'sweet_chilli_pepper.jpg'];
+            if (Storage::exists($product->cover_path) && !in_array($product->cover_path,  $shopImg)) {
+                Storage::delete($product->cover_path);
+            }
+            $filename = Storage::disk('public')->put('', $request->image);
+            $product->cover_path = $filename;
+        }
+        $product->save();
+
+        return response()->json([
+            'message' => 'La photo de votre produit a été modifé.',
+            'data' => $product,
+            'status' => 200
+        ]);;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, Product $product)
     {
+
+
         if ($product->shop->id != Auth::user()->shop->id) {
             return redirect()->back();
         }
@@ -110,20 +146,11 @@ class ProductController extends Controller
             'description' => ['required', 'string', 'max:300'],
             'price' => ['numeric', 'min:0', 'max:200'],
             'stock' => ['numeric', 'min:0', 'max:1000'],
-            'cover' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
-        if ($request->cover != null) {
-            $shopImg =  ['barbecue_style.jpg', 'dippers_guacamole.jpg', 'dippers_naturel.jpg', 'flamin_hot.jpg', 'nacho_cheese.jpg', 'pure_paprika.jpg', 'sweet_chilli_pepper.jpg'];
-            if (Storage::exists($product->cover_path) && !in_array($product->cover_path,  $shopImg)) {
-                Storage::delete($product->cover_path);
-            }
-            $filename = Storage::disk('public')->put('', $request->cover);
-            $product->cover_path = $filename;
-        }
         $product->shop_id = Auth::user()->shop->id;
         $product->save();
 
