@@ -42,7 +42,7 @@ class RegisteredUserController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', Rules\Password::defaults()],
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $user = User::create([
@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
         $profile = new Profile();
         $profile->firstname = $request->firstname;
         $profile->lastname = $request->lastname;
-        $filename = Storage::disk('public')->put('profile', $request->image);
+        $filename = Storage::disk('public')->put('profile', $request->picture);
         $profile->picture_path = $filename;
         $profile->user_id = $user->id;
         $profile->save();
