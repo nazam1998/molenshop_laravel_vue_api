@@ -18,7 +18,7 @@ class CreateProfilesTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('picture_path');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

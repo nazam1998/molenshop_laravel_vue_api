@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->datetime('date');
             $table->float('price');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

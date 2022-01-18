@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('cover_path');
             $table->float('price');
             $table->integer('stock');
-            $table->foreignId('shop_id');
+            $table->foreignId('shop_id')->constrained();
             $table->timestamps();
         });
     }

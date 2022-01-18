@@ -24,15 +24,16 @@ use App\Http\Controllers\ShopController;
 
 Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        $user = $request->user()->with('profile')->where('id', $request->user()->id)->first();
+        $user = $request->user()->with('profile', 'shop')->where('id', $request->user()->id)->first();
 
         return response()->json([
             'data' => $user
         ]);
     });
-    Route::get('mg/shop', function () {
-        $shop = Shop::where('public', true)->with('products')->first();
 
+    Route::get('mg/shop', function () {
+
+        $shop = Shop::with('products')->where('public', true)->first();
         return response()->json(['message' => 'Succès', 'data' => $shop, 'status' => 200]);
     });
 
