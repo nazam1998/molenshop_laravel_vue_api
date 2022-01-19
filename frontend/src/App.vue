@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <nav-bar />
+  <div id="app" :class="{ rotating: rotate }">
+    <nav-bar @rotate="rotate = !rotate" />
     <v-app>
-      <v-alert v-if="message" :type="message.type" dismissible class="my-10">
+      <v-alert v-if="message" :type="message.type" dismissible class="my-8">
         {{ message.text }}
         <v-row v-if="message.errors">
           <v-col
@@ -27,6 +27,11 @@ import NavBar from "@/components/NavBar.vue";
 import { mapState } from "vuex";
 export default {
   name: "App",
+  data() {
+    return {
+      rotate: false,
+    };
+  },
   components: { NavBar },
   mounted() {
     if (this.$store.state.auth_token) {
@@ -38,5 +43,40 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 2s linear;
+  -moz-animation: rotating 2s linear;
+  -ms-animation: rotating 2s linear;
+  -o-animation: rotating 2s linear;
+  animation: rotating 2s linear;
+}
 </style>

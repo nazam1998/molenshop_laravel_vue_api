@@ -11,6 +11,7 @@
     </v-row>
     <v-row
       class="my-5 justify-content-between text-left align-items-center"
+      :class="{'deleted':item.product.deleted_at}"
       tag="li"
       v-for="item in order_items"
       :key="item.id"
@@ -31,6 +32,7 @@
       <v-col cols="2"
         >{{ (item.product.price * item.quantity).toFixed(2) }}€</v-col
       >
+      <v-card-title v-if="item.product.deleted_at" class="title">Product Not Available Anymore</v-card-title>
     </v-row>
     <h3 class="text-center">Total Order Price: {{ order.price }}€</h3>
   </v-container>
@@ -94,4 +96,12 @@ export default {
 };
 </script>
 <style scoped>
+.deleted{
+  background-color: rgba(255,0,0,0.2);
+  opacity: 0.8;
+}
+.deleted .title{
+  color: white;
+  opacity: 1;
+}
 </style>

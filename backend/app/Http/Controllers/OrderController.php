@@ -59,7 +59,7 @@ class OrderController extends Controller
         if ($order->user_id != Auth::id()) {
             return redirect()->back();
         }
-        $orderdetails = OrderDetail::with('product')->where('order_id', $order->id)->get();
+        $orderdetails = OrderDetail::with(['product'=> fn($q) => $q->withTrashed()])->where('order_id', $order->id)->get();
         return response()->json([
             'message' => "Succès",
             'data' => ['order' => $order, 'order_items' => $orderdetails],

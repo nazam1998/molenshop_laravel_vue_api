@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->float('price');
             $table->integer('stock');
             $table->foreignId('shop_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -1,11 +1,11 @@
 <template>
   <v-app-bar>
     <v-toolbar-title>
-      <v-btn href="/" tag="span" style="cursor: pointer"> MoShop </v-btn>
+      <v-btn @click="$emit('rotate')" tag="span" style="cursor: pointer"> MoShop </v-btn>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-xs-only">
-      <v-btn href="/">
+      <v-btn to="/">
         <v-icon>home</v-icon>
         Home
       </v-btn>
@@ -36,8 +36,7 @@
       <v-btn
         v-if="auth_token"
         @click="
-          $store.commit('logout');
-          $router.push({ name: 'Login' });"
+          $store.dispatch('logout');"
         >Logout</v-btn
       >
     </v-toolbar-items>

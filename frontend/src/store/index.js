@@ -69,7 +69,7 @@ export default new Vuex.Store({
           state.message = {
             'text': err.message,
             'type': 'error',
-            'errors':err.response.data.errors
+            'errors': err.response.data.errors
           };
         });
     },
@@ -90,7 +90,7 @@ export default new Vuex.Store({
           state.message = {
             'text': err.message,
             'type': 'error',
-            'errors':err.response.data.errors
+            'errors': err.response.data.errors
           };
         });
     },
@@ -112,9 +112,22 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       });
+    },
+    logout: function ({
+      commit,
+      state
+    }) {
+      axios.post('http://127.0.0.1:8000/api/v1/logout',{}, {
+        headers: {
+          Authorization: "Bearer " + state.auth_token
+        }
+      }).then(() => {
+        commit('logout');
+        router.push({ name: 'Login' });
+      })
     },
     editPicture: function ({
       state,
@@ -131,7 +144,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       })
     },
@@ -151,7 +164,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       })
     },
@@ -169,7 +182,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       });
     },
@@ -196,7 +209,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       })
     },
@@ -223,7 +236,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       })
     },
@@ -248,7 +261,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       });
     },
@@ -267,7 +280,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       })
     },
@@ -291,7 +304,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       })
     },
@@ -314,7 +327,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       })
     },
@@ -336,7 +349,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       })
     },
@@ -355,7 +368,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       });
     },
@@ -374,7 +387,7 @@ export default new Vuex.Store({
         state.message = {
           'text': err.message,
           'type': 'error',
-          'errors':err.response.data.errors
+          'errors': err.response.data.errors
         };
       });
     },

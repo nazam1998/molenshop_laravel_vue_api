@@ -41,7 +41,7 @@
       <v-btn
         variant="success"
         class="mx-auto"
-        v-if="myCart.length != 0"
+        v-if="myCart.length != 0 && containsDeleted.length>0"
         @click="confirm">
         Confirm Order
       </v-btn>
@@ -73,6 +73,11 @@ export default {
         " " +
         this.currentUser.profile.firstname
       );
+    },
+    containsDeleted: function () {
+      return this.myCart.filter(elem=>{
+        elem.product.deleted_at
+      })
     },
 
     totalPrice: function () {
