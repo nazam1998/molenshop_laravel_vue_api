@@ -136,9 +136,7 @@ export default {
       );
     },
     profilPicture: function () {
-      return (
-        "http://127.0.0.1:8000/storage/" + this.currentUser.profile.picture_path
-      );
+      return this.storageUrl + this.currentUser.profile.picture_path;
     },
     ...mapState(["currentUser"]),
   },

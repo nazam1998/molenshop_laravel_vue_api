@@ -7,7 +7,7 @@
       <v-col v-for="product in myShop.products" :key="product.id" cols="4">
         <v-card img-top tag="article" style="height: 100%" class="mv-2 p-3">
           <v-card-title>{{ product.name }}</v-card-title>
-          <v-img max-width="300" max-height="300" :src="'http://127.0.0.1:8000/storage/' + product.cover_path">
+          <v-img max-width="300" max-height="300" :src="storageUrl + product.cover_path">
           </v-img>
           <v-card-text>
             {{ product.description.substring(0, 50) + "..." }}

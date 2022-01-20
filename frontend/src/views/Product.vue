@@ -3,7 +3,7 @@
     <v-row class="align-items">
       <v-col cols="6">
         <v-img
-          :src="'http://127.0.0.1:8000/storage/' + product.cover_path"
+          :src="storageUrl + product.cover_path"
           alt=""
         ></v-img>
       </v-col>
@@ -79,7 +79,7 @@ export default {
     },
     getProduct() {
       axios
-        .get("http://127.0.0.1:8000/api/v1/product/" + this.productid, {
+        .get("/api/v1/product/" + this.productid, {
           headers: {
             Authorization: "Bearer " + this.auth_token,
           },

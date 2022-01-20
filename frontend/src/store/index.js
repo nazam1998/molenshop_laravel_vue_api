@@ -15,10 +15,14 @@ export default new Vuex.Store({
     myShop: null,
     myCart: null,
     orders: null,
+    rotate: false,
   },
   mutations: {
     setShops: function (state, value) {
       state.shops = value;
+    },
+    setRotate: function (state) {
+      state.rotate = !state.rotate;
     },
     setOrders: function (state, value) {
       state.orders = value.data;
@@ -99,7 +103,7 @@ export default new Vuex.Store({
       dispatch,
       state
     }, value) {
-      axios.post('http://127.0.0.1:8000/api/v1/login', value).then((resp) => {
+      axios.post('/api/v1/login', value).then((resp) => {
         commit('setToken', resp.data.data.token);
         dispatch('getUser');
         dispatch('getMyShop');
@@ -120,20 +124,22 @@ export default new Vuex.Store({
       commit,
       state
     }) {
-      axios.post('http://127.0.0.1:8000/api/v1/logout',{}, {
+      axios.post('/api/v1/logout', {}, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
       }).then(() => {
         commit('logout');
-        router.push({ name: 'Login' });
+        router.push({
+          name: 'Login'
+        });
       })
     },
     editPicture: function ({
       state,
       dispatch
     }, value) {
-      axios.post('http://127.0.0.1:8000/api/v1/user/picture', value, {
+      axios.post('/api/v1/user/picture', value, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -152,7 +158,7 @@ export default new Vuex.Store({
       state,
       dispatch
     }, value) {
-      axios.post('http://127.0.0.1:8000/api/v1/user', value, {
+      axios.post('/api/v1/user', value, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -172,7 +178,7 @@ export default new Vuex.Store({
       commit,
       state
     }) {
-      await axios.get('http://127.0.0.1:8000/api/v1/user', {
+      await axios.get('/api/v1/user', {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -191,7 +197,7 @@ export default new Vuex.Store({
       dispatch
     }, value) {
 
-      axios.post('http://127.0.0.1:8000/api/v1/cart', value, {
+      axios.post('/api/v1/cart', value, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -218,7 +224,7 @@ export default new Vuex.Store({
       dispatch
     }, value) {
 
-      axios.delete('http://127.0.0.1:8000/api/v1/cart/' + value, {
+      axios.delete('/api/v1/cart/' + value, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -245,7 +251,7 @@ export default new Vuex.Store({
       commit,
       state
     }) {
-      axios.post('http://127.0.0.1:8000/api/v1/buy', {}, {
+      axios.post('/api/v1/buy', {}, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -269,7 +275,7 @@ export default new Vuex.Store({
       state,
       dispatch
     }, value) {
-      axios.post('http://127.0.0.1:8000/api/v1/product', value, {
+      axios.post('  /api/v1/product', value, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -291,7 +297,7 @@ export default new Vuex.Store({
 
       let data = value[0];
       let product_id = value[1];
-      axios.post('http://127.0.0.1:8000/api/v1/product/' + product_id, data, {
+      axios.post('/api/v1/product/' + product_id, data, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -314,7 +320,7 @@ export default new Vuex.Store({
     }, value) {
       let data = value[0];
       let product_id = value[1];
-      axios.post('http://127.0.0.1:8000/api/v1/product/' + product_id + '/picture', data, {
+      axios.post('/api/v1/product/' + product_id + '/picture', data, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -336,7 +342,7 @@ export default new Vuex.Store({
       dispatch
     }, value) {
 
-      axios.delete('http://127.0.0.1:8000/api/v1/product/' + value, {
+      axios.delete('/api/v1/product/' + value, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -357,7 +363,7 @@ export default new Vuex.Store({
       commit,
       state
     }) {
-      await axios.get('http://127.0.0.1:8000/api/v1/shop', {
+      await axios.get('/api/v1/shop', {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
@@ -376,7 +382,7 @@ export default new Vuex.Store({
       commit,
       state
     }) {
-      await axios.get('http://127.0.0.1:8000/api/v1/cart', {
+      await axios.get('/api/v1/cart', {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }

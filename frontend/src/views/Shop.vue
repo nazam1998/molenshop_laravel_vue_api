@@ -40,7 +40,7 @@ export default {
   methods:{
     getShop(){
       axios
-      .get("http://127.0.0.1:8000/api/v1/shop/" + this.shopid, {
+      .get("/api/v1/shop/" + this.shopid, {
         headers: {
           Authorization: "Bearer " + this.$store.state.auth_token,
         },

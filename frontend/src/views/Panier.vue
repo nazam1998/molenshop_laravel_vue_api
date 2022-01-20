@@ -22,26 +22,27 @@
           align="center"
           v-if="item.product"
         >
-          <v-col cols="3"
-            ><v-img
+          <v-col cols="3">
+            <v-img
               class="img-fluid"
               max-width="100"
               max-height="100"
-              :src="'http://127.0.0.1:8000/storage/' + item.product.cover_path"
+              :src="storageUrl + item.product.cover_path"
               alt=""
-            ></v-img>
+            >
+            </v-img>
           </v-col>
           <v-col cols="3">{{ item.product.name }}</v-col>
           <v-col cols="1">{{ item.quantity }}</v-col>
           <v-col cols="1">{{ item.product.price.toFixed(2) }}€</v-col>
-          <v-col cols="1"
-            >{{ (item.product.price * item.quantity).toFixed(2) }}€</v-col
-          >
-          <v-col cols="1"
-            ><v-btn color="red" @click="removeFromCart(item.id)"
-              ><v-icon>delete</v-icon></v-btn
-            ></v-col
-          >
+          <v-col cols="1">
+            {{ (item.product.price * item.quantity).toFixed(2) }}€
+          </v-col>
+          <v-col cols="1">
+            <v-btn color="red" @click="removeFromCart(item.id)">
+              <v-icon>delete</v-icon>
+            </v-btn>
+          </v-col>
         </v-row>
       </v-list-item>
     </v-list>

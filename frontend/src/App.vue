@@ -1,7 +1,7 @@
 <template>
-  <div id="app" :class="{ rotating: rotate }">
-    <nav-bar @rotate="rotate = !rotate" />
-    <v-app>
+  <div id="app">
+    <v-app app>
+    <nav-bar @rotate="$store.commit('setRotate')" />
       <v-alert v-if="message" :type="message.type" dismissible class="my-8">
         {{ message.text }}
         <v-row v-if="message.errors">
@@ -27,11 +27,6 @@ import NavBar from "@/components/NavBar.vue";
 import { mapState } from "vuex";
 export default {
   name: "App",
-  data() {
-    return {
-      rotate: false,
-    };
-  },
   components: { NavBar },
   mounted() {
     if (this.$store.state.auth_token) {

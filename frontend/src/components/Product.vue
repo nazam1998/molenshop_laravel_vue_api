@@ -5,7 +5,7 @@
       >
         <v-card >
           <v-card-title>{{ product.name }}</v-card-title>
-          <v-img max-height="250" max-width="250" :src="'http://127.0.0.1:8000/storage/' + product.cover_path">
+          <v-img :class="{ rotating: $store.state.rotate }" max-height="250" max-width="250" :src="storageUrl + product.cover_path">
           </v-img>
           <v-card-text>
             {{ product.description.substring(0, 50) + "..." }} <router-link :to="{name:'Product', params:{productid:product.id}}">Read more</router-link>
@@ -88,4 +88,39 @@ export default {
 };
 </script>
 <style scoped>
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 2s linear;
+  -moz-animation: rotating 2s linear;
+  -ms-animation: rotating 2s linear;
+  -o-animation: rotating 2s linear;
+  animation: rotating 2s linear;
+}
 </style>

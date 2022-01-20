@@ -22,7 +22,7 @@
           class="img-fluid"
           max-width="100"
           max-height="100"
-          :src="'http://127.0.0.1:8000/storage/' + item.product.cover_path"
+          :src="storageUrl + item.product.cover_path"
           alt=""
         ></v-img>
       </v-col>
@@ -58,7 +58,7 @@ export default {
   mounted() {
     let auth_token = this.auth_token;
     axios
-      .get("http://127.0.0.1:8000/api/v1/order/" + this.orderid, {
+      .get("/api/v1/order/" + this.orderid, {
         headers: {
           Authorization: "Bearer " + auth_token,
         },
