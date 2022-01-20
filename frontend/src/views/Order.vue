@@ -28,13 +28,13 @@
       </v-col>
       <v-col cols="4" class="border-right">{{ item.product.name }}</v-col>
       <v-col cols="1" class="border-right">{{ item.quantity }}</v-col>
-      <v-col cols="2" class="border-right">{{ item.product.price }}€</v-col>
+      <v-col cols="2" class="border-right">{{ item.product.price.toFixed(2) }}€</v-col>
       <v-col cols="2"
         >{{ (item.product.price * item.quantity).toFixed(2) }}€</v-col
       >
       <v-card-title v-if="item.product.deleted_at" class="title">Product Not Available Anymore</v-card-title>
     </v-row>
-    <h3 class="text-center">Total Order Price: {{ order.price }}€</h3>
+    <h3 class="text-center">Total Order Price: {{ order.price.toFixed(2) }}€</h3>
   </v-container>
 </template>
 <script>

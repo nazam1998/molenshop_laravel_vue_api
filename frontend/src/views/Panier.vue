@@ -12,9 +12,14 @@
       <v-col cols="1"></v-col>
     </v-row>
     <v-list v-if="myCart.length > 0">
-      <v-list-item v-for="item in myCart" :key="item.id">
+      <v-list-item
+        v-for="item in myCart"
+        :key="item.id"
+        :class="{ deleted: item.product.deleted_at }"
+      >
         <v-row
           class="align-items-center p-2 justify-content-between"
+          align="center"
           v-if="item.product"
         >
           <v-col cols="3"
@@ -28,22 +33,33 @@
           </v-col>
           <v-col cols="3">{{ item.product.name }}</v-col>
           <v-col cols="1">{{ item.quantity }}</v-col>
-          <v-col cols="1">{{ item.product.price }}€</v-col>
+          <v-col cols="1">{{ item.product.price.toFixed(2) }}€</v-col>
           <v-col cols="1"
             >{{ (item.product.price * item.quantity).toFixed(2) }}€</v-col
           >
-          <v-col cols="1"><v-btn color="red" @click="removeFromCart(item.id)"><v-icon>delete</v-icon></v-btn></v-col>
+          <v-col cols="1"
+            ><v-btn color="red" @click="removeFromCart(item.id)"
+              ><v-icon>delete</v-icon></v-btn
+            ></v-col
+          >
         </v-row>
       </v-list-item>
     </v-list>
     <div class="mx-auto text-center" v-if="myCart.length > 0">
-      <h3 class="my-5">Total Price: {{ totalPrice.toFixed(2) }}€</h3>
+      <h3 class="my-5" v-if="containsDeleted.length <= 0">
+        Total Price: {{ totalPrice.toFixed(2) }}€
+      </h3>
       <v-btn
         variant="success"
         class="mx-auto"
-        v-if="myCart.length != 0 && containsDeleted.length>0"
-        @click="confirm">
+        v-if="myCart.length != 0 && containsDeleted.length == 0"
+        @click="confirm"
+      >
         Confirm Order
+      </v-btn>
+      <v-btn color="orange" v-else-if="containsDeleted.length != 0">
+        Some items are not available anymore, please delete them from your cart
+        before proceeding.
       </v-btn>
     </div>
   </v-container>
@@ -62,9 +78,9 @@ export default {
     confirm() {
       this.$store.dispatch("confirmOrder");
     },
-    removeFromCart(id){
-      this.$store.dispatch("removeFromCart", id)
-    }
+    removeFromCart(id) {
+      this.$store.dispatch("removeFromCart", id);
+    },
   },
   computed: {
     fullname: function () {
@@ -75,15 +91,15 @@ export default {
       );
     },
     containsDeleted: function () {
-      return this.myCart.filter(elem=>{
-        elem.product.deleted_at
-      })
+      return this.myCart.filter((elem) => {
+        return elem.product.deleted_at;
+      });
     },
 
     totalPrice: function () {
       let totalPrice = 0;
       this.myCart.forEach((elem) => {
-        if (elem.product) {
+        if (!elem.product.deleted_at) {
           totalPrice += elem.product.price * elem.quantity;
         }
       });
@@ -96,5 +112,8 @@ export default {
 <style scoped>
 ul li {
   border: 1px solid grey;
+}
+.deleted {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 </style>

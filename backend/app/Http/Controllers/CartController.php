@@ -65,7 +65,7 @@ class CartController extends Controller
     public function remove($id)
     {
         $cartdetail = CartDetail::find($id);
-        $product = Product::find($cartdetail->product_id);
+        $product = Product::withTrashed()->find($cartdetail->product_id);
         if ($product->shop->id == Auth::user()->shop->id) {
             return redirect()->back();
         }
