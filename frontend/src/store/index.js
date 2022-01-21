@@ -233,8 +233,9 @@ export default new Vuex.Store({
       ) => {
         state.message = {
           'text': resp.data.message,
-          'type': 'success'
+          'type': 'success',
         };
+        console.log(resp);
         dispatch('getMyShop')
         dispatch('getShops')
         dispatch('getMyCart')
@@ -275,12 +276,16 @@ export default new Vuex.Store({
       state,
       dispatch
     }, value) {
-      axios.post('  /api/v1/product', value, {
+      axios.post('/api/v1/product', value, {
         headers: {
           Authorization: "Bearer " + state.auth_token
         }
-      }).then(() => {
+      }).then((response) => {
         dispatch('getMyShop')
+        state.message = {
+          'text': response.data.message,
+          'type': 'success'
+        };
       }).catch((err) => {
         console.log(err.data);
         state.message = {
@@ -302,8 +307,12 @@ export default new Vuex.Store({
           Authorization: "Bearer " + state.auth_token
         }
       }).then((
-
+        response
       ) => {
+        state.message = {
+          'text': response.data.message,
+          'type': 'success'
+        };
         dispatch('getMyShop')
       }).catch((err) => {
         console.log(err.data);
@@ -325,9 +334,13 @@ export default new Vuex.Store({
           Authorization: "Bearer " + state.auth_token
         }
       }).then((
-
+        response
       ) => {
         dispatch('getMyShop')
+        state.message = {
+          'text': response.data.message,
+          'type': 'success'
+        };
       }).catch((err) => {
         console.log(err.data);
         state.message = {
@@ -347,9 +360,13 @@ export default new Vuex.Store({
           Authorization: "Bearer " + state.auth_token
         }
       }).then((
-
+        response
       ) => {
         dispatch('getMyShop')
+        state.message = {
+          'text': response.data.message,
+          'type': 'success'
+        };
       }).catch((err) => {
         console.log(err.data);
         state.message = {

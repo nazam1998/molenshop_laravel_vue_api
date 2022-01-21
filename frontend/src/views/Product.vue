@@ -2,10 +2,7 @@
   <v-container v-if="product">
     <v-row class="align-items">
       <v-col cols="6">
-        <v-img
-          :src="storageUrl + product.cover_path"
-          alt=""
-        ></v-img>
+        <v-img :src="storageUrl + product.cover_path" alt=""></v-img>
       </v-col>
       <v-col cols="6" class="product-desc">
         <v-row align="between" height="100%">
@@ -16,7 +13,7 @@
             <p>{{ product.description }}</p>
           </v-col>
           <v-col cols="12">
-            <p>{{ product.stock }}</p>
+            <p>Left: {{ product.stock }}</p>
           </v-col>
           <v-col cols="12">
             <h5>{{ product.price }}€</h5>

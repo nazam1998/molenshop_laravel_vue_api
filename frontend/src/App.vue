@@ -1,25 +1,70 @@
 <template>
   <div id="inspire">
     <v-app app>
-      <nav-bar @rotate="$store.commit('setRotate')" />
-      <v-alert v-if="message" :type="message.type" dismissible class="my-8">
-        {{ message.text }}
-        <v-row v-if="message.errors">
-          <v-col
-            cols="12"
-            v-for="(error, index) in message.errors"
-            :key="index"
-          >
-            *<span v-for="(msg, errInd) in error" :key="errInd">
-              {{ msg }}
-            </span>
-          </v-col>
-        </v-row>
-      </v-alert>
-      <v-container class="my-10">
+      <nav-bar
+        @setDrawer="drawer = !drawer"
+        @rotate="$store.commit('setRotate')"
+      />
+      <v-navigation-drawer app v-model="drawer">
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6"> Moshop </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-spacer></v-spacer>
+        <v-list>
+          <v-list-item to="/">
+            <v-list-item-icon class="mdi mdi-home"></v-list-item-icon>
+            <v-list-item-content>Home</v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="auth_token" to="/shops" link>
+            <v-list-item-icon class="mdi mdi-shopping"></v-list-item-icon>
+            <v-list-item-content>All Shops</v-list-item-content>
+          </v-list-item>
+
+          <v-list-item v-if="auth_token" to="/myorders" link>
+            <v-list-item-icon
+              class="mdi mdi-format-list-bulleted"
+            ></v-list-item-icon>
+            <v-list-item-content>My Orders</v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="auth_token" to="/myshop">
+            <v-list-item-icon class="mdi mdi-shopping"></v-list-item-icon>
+            <v-list-item-content>My Shop</v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <v-main class="">
+        <v-alert
+          v-if="message"
+          :type="message.type"
+          dismissible
+          class="mt-1 mb-5"
+        >
+          {{ message.text }}
+          <v-row v-if="message.errors">
+            <v-col
+              cols="12"
+              v-for="(error, index) in message.errors"
+              :key="index"
+            >
+              *<span v-for="(msg, errInd) in error" :key="errInd">
+                {{ msg }}
+              </span>
+            </v-col>
+          </v-row>
+        </v-alert>
+
         <router-view />
-            
-        <v-btn elevation="2" fab fixed right bottom  @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+        <v-btn
+          elevation="2"
+          fab
+          fixed
+          right
+          bottom
+          @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+        >
           <v-icon
             :class="{
               mdi: true,
@@ -28,7 +73,7 @@
             }"
           ></v-icon>
         </v-btn>
-      </v-container>
+      </v-main>
     </v-app>
   </div>
 </template>
@@ -38,13 +83,23 @@ import { mapState } from "vuex";
 export default {
   name: "App",
   components: { NavBar },
+  data() {
+    return { drawer: false };
+  },
   mounted() {
     if (this.$store.state.auth_token) {
       this.$store.dispatch("getMyCart");
     }
   },
+  methods: {
+    setDrawer() {
+      if (this.drawer == true) {
+        this.drawer = false;
+      }
+    },
+  },
   computed: {
-    ...mapState(["message"]),
+    ...mapState(["message", "auth_token"]),
   },
 };
 </script>

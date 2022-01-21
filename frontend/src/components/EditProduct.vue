@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" max-width="600px" @click:outside="dialog=false">
+    <v-dialog
+      v-model="dialog"
+      max-width="600px"
+      @click:outside="dialog = false"
+    >
       <template v-slot:activator="{ on, attrs }">
         <v-btn color="primary" dark v-bind="attrs" v-on="on">
           Edit Product
@@ -49,7 +53,11 @@
                 ></v-textarea>
               </v-col>
               <v-col>
-                <v-file-input v-model="cover" @change="editPictureProduct" class="my-3"></v-file-input>
+                <v-file-input
+                  v-model="cover"
+                  @change="editPictureProduct"
+                  class="my-3"
+                ></v-file-input>
               </v-col>
             </v-row>
           </v-container>
@@ -114,12 +122,14 @@ export default {
       formData.append("stock", this.stock);
       formData.append("_method", "PUT");
       this.$store.dispatch("editProduct", [formData, this.product.id]);
+      this.dialog = false;
     },
     editPictureProduct: function () {
       let formData = new FormData();
       formData.append("image", this.cover);
       formData.append("_method", "PUT");
       this.$store.dispatch("editProductPicture", [formData, this.product.id]);
+      this.dialog = false;
     },
   },
 };

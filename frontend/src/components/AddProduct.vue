@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" persistent max-width="600px" @click:outside="dialog=false">
+    <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="600px"
+      @click:outside="dialog = false"
+    >
       <template v-slot:activator="{ on, attrs }">
         <v-btn color="primary" dark v-bind="attrs" v-on="on">
           Add Product
@@ -105,6 +110,7 @@ export default {
 
       this.$store.dispatch("addProduct", formData);
       this.nameValue = null;
+      this.dialog = false;
       this.descValue = null;
       this.cover = null;
       this.price = null;

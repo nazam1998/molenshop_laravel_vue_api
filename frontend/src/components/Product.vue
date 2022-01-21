@@ -1,6 +1,7 @@
 <template lang="">
     <v-col
-        cols="4"
+        cols="12"
+        md="4"
         class="my-3"
       >
         <v-card >
