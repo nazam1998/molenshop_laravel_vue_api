@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="inspire">
     <v-app app>
-    <nav-bar @rotate="$store.commit('setRotate')" />
+      <nav-bar @rotate="$store.commit('setRotate')" />
       <v-alert v-if="message" :type="message.type" dismissible class="my-8">
         {{ message.text }}
         <v-row v-if="message.errors">
@@ -18,6 +18,16 @@
       </v-alert>
       <v-container class="my-10">
         <router-view />
+            
+        <v-btn elevation="2" fab fixed right bottom  @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+          <v-icon
+            :class="{
+              mdi: true,
+              'mdi-moon-first-quarter': $vuetify.theme.dark,
+              'mdi-weather-sunny': !$vuetify.theme.dark,
+            }"
+          ></v-icon>
+        </v-btn>
       </v-container>
     </v-app>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app>
+  <v-app-bar>
     <v-toolbar-title>
       <v-btn @click="$emit('rotate')" tag="span" style="cursor: pointer">
         MoShop
@@ -7,23 +7,12 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-xs-only">
-      <v-btn @click="$vuetify.theme.dark = !$vuetify.theme.dark">
-        <v-icon
-          :class="{
-            'mdi': true,
-            'mdi-moon-first-quarter': $vuetify.theme.dark,
-            'mdi-weather-sunny': !$vuetify.theme.dark,
-          }"
-        ></v-icon>
-      </v-btn>
       <v-btn to="/">
         <v-icon>home</v-icon>
         Home
       </v-btn>
-
       <v-btn v-if="!auth_token" to="/register"> Register </v-btn>
       <v-btn v-if="!auth_token" to="/login"> Login </v-btn>
-
       <v-btn v-if="auth_token" to="/shops">
         <v-icon class="mdi mdi-shopping"></v-icon>All Shops
       </v-btn>
